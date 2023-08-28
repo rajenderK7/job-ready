@@ -2,14 +2,16 @@ import { Schema, model } from "mongoose";
 import { UserI } from "./User";
 
 export interface InterviewerI extends UserI {
+  image: string;
   company: string;
+  role: string;
   experience: number;
   duration?: string;
   availFromDate: Date;
   availUntilDate: Date;
 }
 
-const InterviewerSchema = new Schema({
+const InterviewerSchema = new Schema<InterviewerI>({
   firstName: {
     type: String,
     required: true,
@@ -34,9 +36,15 @@ const InterviewerSchema = new Schema({
   },
   availFromDate: {
     type: Date,
+    default: Date.now,
   },
   availUntilDate: {
     type: Date,
+    default: () => {
+      const date = new Date();
+      date.setDate(date.getDate() + 40);
+      return date;
+    },
   },
 });
 
