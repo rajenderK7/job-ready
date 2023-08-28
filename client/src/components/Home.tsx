@@ -12,7 +12,10 @@ const Home = () => {
         Get Job Ready
       </h1>
       <section className="text-xl md:text-2xl text-slate-600 my-4 text-center font-medium">
-        <h2>Book 1-1 mock interview with working professionals</h2>
+        <h2>
+          Book <span className="text-pink-600 font-bold">1-1</span> mock
+          interview with working professionals
+        </h2>
         <h2>Start now by choosing a date</h2>
       </section>
       <section className="max-w-xl flex flex-col items-center">
