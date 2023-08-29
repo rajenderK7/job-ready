@@ -24,10 +24,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/user", userAPI);
-app.use("/intvr", intvrAPI);
-app.use("/auth", authAPI);
+const apiRouter = express.Router();
+apiRouter.use("/user", userAPI);
+apiRouter.use("/intvr", intvrAPI);
+apiRouter.use("/auth", authAPI);
 
+app.use("/api", apiRouter);
 app.get("/", async (req: Request, res: Response) => {
   res.status(200).json({ message: "Hello there!" });
 });
