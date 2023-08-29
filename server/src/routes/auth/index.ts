@@ -1,9 +1,11 @@
 import express, { Request, Response } from "express";
 import OTP from "../../models/OTP";
 import nodemailer from "nodemailer";
+import { configDotenv } from "dotenv";
 
 const router = express.Router();
 router.use(express.json());
+configDotenv();
 
 router.post("/set-otp", async (req: Request, res: Response) => {
   const { email } = req.body;
@@ -18,21 +20,24 @@ router.post("/set-otp", async (req: Request, res: Response) => {
       }
     );
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      service: "outlook",
       auth: {
-        user: "Kanthaladanush.rfc8@gmail.com",
-        pass: "Kdvnr@2003",
+        user: process.env.OTP_EMAIL,
+        pass: process.env.OTP_PASS,
       },
       tls: {
+        ciphers: "SSLv3",
         rejectUnauthorized: false,
       },
     });
-
     const mailOptions = {
-      from: "Kanthaladanush.rfc8@gmail.com",
-      to: "20071a6625@vnrvjiet.in",
-      subject: "Sending Email using Node.js",
-      text: "That was easy!",
+      from: process.env.OTP_EMAIL,
+      to: email,
+      subject: "Your OTP for signing into Job Ready",
+      html: `<div>
+        <h1>OTP: <strong>${otp}</strong></h1>
+        <p>This OTP will expire in 10 minutes.</p>
+      </div>`,
     };
     transporter.sendMail(mailOptions, function (error, info) {
       if (error) {
@@ -42,6 +47,20 @@ router.post("/set-otp", async (req: Request, res: Response) => {
       }
     });
     res.status(200).json({ message: "otp sent" });
+  } catch (e: any) {
+    res.status(400).json({ message: e.message });
+  }
+});
+
+router.post("/verify-otp", async (req: Request, res: Response) => {
+  try {
+    const { email, otp } = req.body;
+    const doc = await OTP.findOne({ email });
+    if (!doc || doc.otp.toString() !== otp) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+    await OTP.deleteMany({ email });
+    res.status(200).json({ message: "success" });
   } catch (e: any) {
     res.status(400).json({ message: e.message });
   }
