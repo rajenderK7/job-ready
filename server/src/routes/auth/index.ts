@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import OTP from "../../models/OTP";
 import nodemailer from "nodemailer";
 import { configDotenv } from "dotenv";
-import User from "../../models/User";
+import User, { UserI } from "../../models/User";
 
 const router = express.Router();
 router.use(express.json());
@@ -10,6 +10,7 @@ configDotenv();
 
 router.post("/set-otp", async (req: Request, res: Response) => {
   const { email } = req.body;
+  if (!email) throw new Error("Email is required");
   try {
     const otp = Math.floor(100000 + Math.random() * 900000);
     const doc = await OTP.findOneAndUpdate(
@@ -40,11 +41,9 @@ router.post("/set-otp", async (req: Request, res: Response) => {
         <p>This OTP will expire in 10 minutes.</p>
       </div>`,
     };
-    transporter.sendMail(mailOptions, function (error, info) {
+    transporter.sendMail(mailOptions, function (error, _) {
       if (error) {
         console.log(error);
-      } else {
-        console.log("Email sent: " + info.response);
       }
     });
     res.status(200).json({ message: "otp sent" });

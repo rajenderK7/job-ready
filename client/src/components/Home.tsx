@@ -1,10 +1,20 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Calender from "./CustomCalendar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import moment from "moment";
+import { useRecoilValue } from "recoil";
+import { authAtom } from "../state/auth";
 
 const Home = () => {
   const [date, setDate] = useState(new Date());
+  const user = useRecoilValue(authAtom);
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!user.email) {
+      navigate("/login");
+      return;
+    }
+  }, []);
 
   return (
     <div className="flex flex-col items-center justify-center md:mt-6">

@@ -1,11 +1,10 @@
-import { useSetRecoilState } from "recoil";
-import { authAtom } from "../state/auth";
-
-const API_URL = process.env.API_URL!;
+const API_URL = "http://localhost:4000/api";
 
 export interface LoginI {
   email: string;
   otp: string;
+  firstName?: string;
+  lastName?: string;
 }
 
 export const RESPONSE_MESSAGES = {
@@ -13,13 +12,25 @@ export const RESPONSE_MESSAGES = {
   error: "something went wrong",
 };
 
-export const userActions = () => {
-  const setAuth = useSetRecoilState(authAtom);
+export const authActions = () => {
+  const requestOTP = async (email: string) => {
+    const res = await fetch(`${API_URL}/auth/set-otp`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    const data = await res.json();
+    return data.message;
+  };
 
   const login = async (creds: LoginI) => {
     try {
-      const res = await fetch(`${API_URL}/verify-otp`, {
+      const res = await fetch(`${API_URL}/auth/verify-otp`, {
         method: "POST",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json",
         },
@@ -27,10 +38,9 @@ export const userActions = () => {
       });
       const data = await res.json();
       if (res.status !== 200 || data.message !== RESPONSE_MESSAGES.success) {
-        return data.message;
+        return data;
       }
-      setAuth(data.user);
-      return data.message;
+      return data;
     } catch (e: any) {
       throw new Error(e);
     }
@@ -38,10 +48,10 @@ export const userActions = () => {
 
   const logout = () => {
     localStorage.removeItem("user");
-    setAuth(null);
     return true;
   };
   return {
+    requestOTP,
     login,
     logout,
   };
