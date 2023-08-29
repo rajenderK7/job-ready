@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import OTP from "../../models/OTP";
 import nodemailer from "nodemailer";
 import { configDotenv } from "dotenv";
+import User from "../../models/User";
 
 const router = express.Router();
 router.use(express.json());
@@ -54,13 +55,27 @@ router.post("/set-otp", async (req: Request, res: Response) => {
 
 router.post("/verify-otp", async (req: Request, res: Response) => {
   try {
-    const { email, otp } = req.body;
+    const { email, otp, firstName, lastName } = req.body;
+    if (!email || !otp) {
+      throw new Error("Invalid data. Provide all the fields");
+    }
     const doc = await OTP.findOne({ email });
-    if (!doc || doc.otp.toString() !== otp) {
-      return res.status(400).json({ message: "Invalid OTP" });
+    if (!doc) {
+      return res.status(400).json({ message: "user does not exist" });
+    }
+    if (doc.otp.toString() !== otp) {
+      return res.status(400).json({ message: "invalid OTP" });
     }
     await OTP.deleteMany({ email });
-    res.status(200).json({ message: "success" });
+    let dbUser = await User.findOne({ email });
+    if (!dbUser) {
+      if (!firstName || !lastName) {
+        throw new Error("Provide first and last names.");
+      }
+      const user = new User({ email, firstName, lastName });
+      dbUser = await user.save();
+    }
+    res.status(200).json({ message: "success", user: dbUser });
   } catch (e: any) {
     res.status(400).json({ message: e.message });
   }
