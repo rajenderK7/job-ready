@@ -26,6 +26,10 @@ const InterviewerSchema = new Schema<InterviewerI>({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    required: true,
+  },
   experience: {
     type: Number,
     required: true,
