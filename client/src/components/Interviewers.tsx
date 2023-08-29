@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import Spinner from "./Spinner";
+import { InterviewerI } from "../../../server/src/models/Interviewer";
+import InterviewerCard from "./InterviewerCard";
 
 const Interviewers = () => {
   let [searchParams, _] = useSearchParams();
-  const [intrvs, setIntrvs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [intrvs, setIntrvs] = useState<InterviewerI[]>([]);
   const date = searchParams.get("date");
   const fetchIntrvs = async () => {
+    setLoading(true);
     const res = await fetch(`http://localhost:4000/intvr/${date}`);
     const data = await res.json();
     setIntrvs(data.intrvs);
+    setLoading(false);
   };
   useEffect(() => {
     fetchIntrvs();
@@ -19,7 +25,13 @@ const Interviewers = () => {
         Interviewers available on {date}
       </h1>
       <hr className="mt-3" />
-      <div className="flex flex-col items-center"></div>
+      <div className="flex flex-wrap">
+        {loading && <Spinner />}
+        {intrvs.length > 0 &&
+          intrvs.map((intrvr, idx) => {
+            return <InterviewerCard key={idx} {...intrvr}></InterviewerCard>;
+          })}
+      </div>
     </>
   );
 };
