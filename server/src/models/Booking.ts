@@ -4,9 +4,9 @@ export interface BookingI {
   userId: Schema.Types.ObjectId;
   intvrId: Schema.Types.ObjectId;
   date: Date;
-  timeFrom: number;
-  timeUntil?: number;
-  oneHour: boolean;
+  timeFrom: string;
+  timeUntil?: string;
+  halfHour: boolean;
 }
 
 const BookingSchema = new Schema<BookingI>({
@@ -23,16 +23,16 @@ const BookingSchema = new Schema<BookingI>({
     required: true,
   },
   timeFrom: {
-    type: Number,
+    type: String,
     required: true,
   },
   timeUntil: {
-    type: Number,
+    type: String,
     required: true,
   },
-  oneHour: {
+  halfHour: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 });
 
