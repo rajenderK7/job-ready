@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "./Spinner";
 import { useRecoilValue } from "recoil";
 import bookingSlotsAtom from "../state/bookings";
+import toast from "react-hot-toast";
+import { authAtom } from "../state/auth";
 
 interface SlotButtonProps {
   time: string;
@@ -26,9 +28,44 @@ const Booking = () => {
   const [intvr, setIntvr] = useState<any>(null);
   const [halfHour, setHalfHour] = useState(false);
   const [choosenIdx, setChoosenIdx] = useState(-1);
+  const user = useRecoilValue(authAtom);
 
   const DImage =
     "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/John_Carmack_at_GDCA_2017_--_1_March_2017_%28cropped%29.jpeg/330px-John_Carmack_at_GDCA_2017_--_1_March_2017_%28cropped%29.jpeg";
+
+  const bookSlotHandler = async () => {
+    if (choosenIdx < 0) {
+      toast.error("Invalid slot selection");
+      return;
+    }
+    const res = await fetch(`http://localhost:4000/api/booking`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: user._id,
+        intvrId: intvr._id,
+        date: date,
+        timeFrom: bookingSlots[choosenIdx],
+        timeUntil: bookingSlots[choosenIdx],
+        halfHour: halfHour,
+      }),
+    });
+    const data = await res.json();
+    if (data.message !== "success") {
+      toast.custom("Something went wrong!", {
+        icon: "🥲",
+      });
+      return;
+    }
+    toast.success("Interview booked successfully");
+    navigate("/my-interviews", {
+      replace: true,
+    });
+    return;
+  };
 
   const slotHandler = (idx: number, available: boolean) => {
     if (!available) return;
@@ -65,6 +102,10 @@ const Booking = () => {
   };
 
   useEffect(() => {
+    if (!user.email) {
+      navigate("/login");
+      return;
+    }
     fetchBookings();
     fetchIntvr();
   }, []);
@@ -106,6 +147,7 @@ const Booking = () => {
             {slots.map((slot: SlotButtonProps, idx: any) => {
               return (
                 <button
+                  key={idx}
                   onClick={() => slotHandler(idx, slot.available)}
                   type="button"
                   disabled={!slot.available}
@@ -177,6 +219,7 @@ const Booking = () => {
                   </span>
                 </p>
                 <button
+                  onClick={bookSlotHandler}
                   className="mt-3 text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   disabled={loading}
                 >

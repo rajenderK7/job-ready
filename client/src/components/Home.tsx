@@ -11,7 +11,9 @@ const Home = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!user.email) {
-      navigate("/login");
+      navigate("/login", {
+        replace: true,
+      });
       return;
     }
   }, []);

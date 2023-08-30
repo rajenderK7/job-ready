@@ -40,7 +40,9 @@ const Login = () => {
       });
       if (res.message === "success") {
         setAuth(res.user);
-        navigate("/");
+        navigate("/", {
+          replace: true,
+        });
         return;
       } else {
         toast.error(res.message);
