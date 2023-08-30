@@ -184,7 +184,7 @@ const Login = () => {
             ) : (
               <button
                 type="submit"
-                className="w-full text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                className="w-full text-white bg-pink-600 hover:bg-pink-700 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                 disabled={loading}
               >
                 <p>{sentOTP ? "Continue" : "Request OTP"}</p>
