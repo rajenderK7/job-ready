@@ -37,7 +37,7 @@ const InterviewerCard = ({ data, date, _id }: InterviewerCardProps) => {
           Available from: {new Date(data.availFromDate).toDateString()}
         </p>
         <p className="text-gray-600 text-sm">
-          Experience: {new Date(data.availUntilDate).toDateString()}
+          Available until: {new Date(data.availUntilDate).toDateString()}
         </p>
       </div>
     </Link>

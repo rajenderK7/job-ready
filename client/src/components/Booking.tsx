@@ -134,7 +134,8 @@ const Booking = () => {
                   Available from: {new Date(intvr.availFromDate).toDateString()}
                 </p>
                 <p className="text-gray-600">
-                  Experience: {new Date(intvr.availUntilDate).toDateString()}
+                  Available until:{" "}
+                  {new Date(intvr.availUntilDate).toDateString()}
                 </p>
               </div>
             </div>

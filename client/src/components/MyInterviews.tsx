@@ -3,11 +3,13 @@ import { useRecoilValue } from "recoil";
 import { authAtom } from "../state/auth";
 import toast from "react-hot-toast";
 import Spinner from "./Spinner";
+import { useNavigate } from "react-router-dom";
 
 const MyInterviews = () => {
   const user = useRecoilValue(authAtom);
   const [loading, setLoading] = useState(false);
   const [bookings, setBookings] = useState([]);
+  const navigate = useNavigate();
 
   const withdrawInterviewHandler = async (id: string) => {
     const res = await fetch(`http://localhost:4000/api/booking/${id}`, {
@@ -41,6 +43,11 @@ const MyInterviews = () => {
   };
 
   useEffect(() => {
+    if (!user.email) {
+      navigate("/", {
+        replace: true,
+      });
+    }
     fetchBookings();
   }, []);
 
@@ -58,7 +65,7 @@ const MyInterviews = () => {
           return (
             <div
               key={booking._id}
-              className="p-2 flex justify-between rounded-md shadow-md my-3 lg:mr-4 border border-pink-200 w-full lg:w-3xl"
+              className="p-2 flex justify-between rounded-md shadow-md my-3 lg:mr-4 border border-pink-300 w-full lg:w-3xl"
             >
               <div>
                 <h1 className="text-lg font-semibold">
@@ -79,7 +86,7 @@ const MyInterviews = () => {
                   className="mr-3 text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-pink-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                   disabled={loading}
                 >
-                  Withdraw interview
+                  Cancel interview
                 </button>
               </div>
             </div>

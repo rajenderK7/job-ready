@@ -32,7 +32,7 @@ const Home = () => {
       </section>
       <section className="max-w-xl flex flex-col items-center">
         <Calender date={date} setDate={setDate} />
-        <p className="my-3 font-medium text-center">
+        <p className="my-4 font-medium text-center">
           Click on Continue to find available professionals on{" "}
           <strong>{date.toDateString()}</strong>
         </p>
