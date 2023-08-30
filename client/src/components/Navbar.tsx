@@ -24,16 +24,24 @@ const Navbar = () => {
           </span>
         </Link>
         <div className="font-medium space-x-4">
-          <Link to="/my-interviews">My Interviews</Link>
-          <Link to="/my-interviews">Profile</Link>
+          <Link to="/my-interviews" className="hover:text-pink-600">
+            My Interviews
+          </Link>
+          <Link to="/my-interviews" className="hover:text-pink-600">
+            Profile
+          </Link>
 
           {user?.email ? (
             <>
               <strong>{user?.email}</strong>
-              <button onClick={handleLogout}>Logout</button>
+              <button onClick={handleLogout} className="hover:text-pink-600">
+                Logout
+              </button>
             </>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="hover:text-pink-600">
+              Login
+            </Link>
           )}
         </div>
       </div>

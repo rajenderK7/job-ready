@@ -1,13 +1,17 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Spinner from "./Spinner";
 import InterviewerCard from "./InterviewerCard";
+import { useRecoilValue } from "recoil";
+import { authAtom } from "../state/auth";
 
 const Interviewers = () => {
   let [searchParams, _] = useSearchParams();
   const [loading, setLoading] = useState(false);
   const [intrvs, setIntrvs] = useState<any>([]);
   const date = searchParams.get("date");
+  const user = useRecoilValue(authAtom);
+  const navigate = useNavigate();
   const fetchIntrvs = async () => {
     setLoading(true);
     const res = await fetch(`http://localhost:4000/api/intvr/${date}`);
@@ -16,6 +20,12 @@ const Interviewers = () => {
     setLoading(false);
   };
   useEffect(() => {
+    if (!user.email) {
+      navigate("/login", {
+        replace: true,
+      });
+      return;
+    }
     fetchIntrvs();
   }, []);
   return (
