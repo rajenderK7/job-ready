@@ -37,4 +37,16 @@ router.get("/:id/:date", async (req: Request, res: Response) => {
   }
 });
 
+// DELTE /api/booking/id
+// Deletes the booking record associcated with id
+router.delete("/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    await Booking.findByIdAndDelete(id);
+    res.status(200).json({ message: "success" });
+  } catch (e: any) {
+    res.status(400).json({ message: e.message });
+  }
+});
+
 export default router;
