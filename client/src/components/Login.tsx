@@ -40,7 +40,6 @@ const Login = () => {
       });
       if (res.message === "success") {
         setAuth(res.user);
-        console.log(res.user);
         navigate("/");
         return;
       } else {
