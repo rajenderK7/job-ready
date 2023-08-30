@@ -1,5 +1,20 @@
 import { Link } from "react-router-dom";
-import { InterviewerI } from "../../../server/src/models/Interviewer";
+
+export interface UserI {
+  firstName: String;
+  lastName?: String;
+  email: String;
+}
+
+interface InterviewerI extends UserI {
+  image: string;
+  company: string;
+  role: string;
+  experience: number;
+  duration?: string;
+  availFromDate: Date;
+  availUntilDate: Date;
+}
 
 interface InterviewerCardProps {
   data: InterviewerI;

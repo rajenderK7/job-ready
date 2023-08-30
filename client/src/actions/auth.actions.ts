@@ -1,5 +1,3 @@
-const API_URL = "http://localhost:4000/api";
-
 export interface LoginI {
   email: string;
   otp: string;
@@ -14,7 +12,7 @@ export const RESPONSE_MESSAGES = {
 
 export const authActions = () => {
   const requestOTP = async (email: string) => {
-    const res = await fetch(`${API_URL}/auth/set-otp`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/set-otp`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -28,14 +26,17 @@ export const authActions = () => {
 
   const login = async (creds: LoginI) => {
     try {
-      const res = await fetch(`${API_URL}/auth/verify-otp`, {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(creds),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/verify-otp`,
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(creds),
+        }
+      );
       const data = await res.json();
       if (res.status !== 200 || data.message !== RESPONSE_MESSAGES.success) {
         return data;
