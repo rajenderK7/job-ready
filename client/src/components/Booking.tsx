@@ -86,9 +86,7 @@ const Booking = () => {
       return {
         time: slot,
         available:
-          intrvr.bookings.findIndex(
-            (b: any) => b.timeFrom === slot || b.timeUntil === slot
-          ) === -1,
+          intrvr.bookings.findIndex((b: any) => b.timeFrom === slot) === -1,
       };
     });
     setSlots(t);

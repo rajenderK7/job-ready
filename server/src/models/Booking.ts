@@ -12,10 +12,12 @@ export interface BookingI {
 const BookingSchema = new Schema<BookingI>({
   userId: {
     type: Schema.Types.ObjectId,
+    ref: "User",
     required: true,
   },
   intvrId: {
     type: Schema.Types.ObjectId,
+    ref: "Interviewer",
     required: true,
   },
   date: {
