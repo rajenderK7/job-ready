@@ -17,28 +17,24 @@ router.post("/", async (req: Request, res: Response) => {
   }
 });
 
-// GET api/booking/interviewerId/dateOfInterview
+// GET api/booking/interviewer/interviewerId/dateOfInterview
 // Returns all the bookings that involve the given interviewer
 // on the given date
 // Date is expected as YYYY-MM-DD from the client
-router.get(
-  "available-interviewers/:id/:date",
-  async (req: Request, res: Response) => {
-    try {
-      const { id, date } = req.params;
-
-      if (!id) {
-        throw new Error("invalid interviewer ID");
-      }
-      const bookings = await Booking.find({ intvrId: id, date }).select(
-        "timeFrom timeUntil"
-      );
-      res.status(200).json({ message: "success", bookings });
-    } catch (e: any) {
-      res.status(400).json({ message: e.message });
+router.get("/interviewer/:id/:date", async (req: Request, res: Response) => {
+  try {
+    const { id, date } = req.params;
+    if (!id) {
+      throw new Error("invalid interviewer ID");
     }
+    const bookings = await Booking.find({ intvrId: id, date }).select(
+      "timeFrom timeUntil"
+    );
+    res.status(200).json({ message: "success", bookings });
+  } catch (e: any) {
+    res.status(400).json({ message: e.message });
   }
-);
+});
 
 // GET /api/user/id
 // Returns bookings made by a user with userId (id)

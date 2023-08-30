@@ -75,7 +75,7 @@ const Booking = () => {
   const fetchBookings = async () => {
     setLoading(true);
     const res = await fetch(
-      `http://localhost:4000/api/booking/${intvrId}/${date}`
+      `http://localhost:4000/api/booking/interviewer/${intvrId}/${date}`
     );
     const intrvr = await res.json();
     if (intrvr.message !== "success") {
