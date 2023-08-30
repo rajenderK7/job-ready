@@ -27,9 +27,6 @@ const Navbar = () => {
           <Link to="/my-interviews" className="hover:text-pink-600">
             My Interviews
           </Link>
-          <Link to="/my-interviews" className="hover:text-pink-600">
-            Profile
-          </Link>
 
           {user?.email ? (
             <>

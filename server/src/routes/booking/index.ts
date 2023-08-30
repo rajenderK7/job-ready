@@ -44,7 +44,7 @@ router.get("/user/:id", async (req: Request, res: Response) => {
     if (!id) {
       throw new Error("invalid interviewer ID");
     }
-    const bookings = await Booking.find({ userId: id });
+    const bookings = await Booking.find({ userId: id }).populate("intvrId");
     res.status(200).json({ message: "success", bookings });
   } catch (e: any) {
     res.status(400).json({ message: e.message });
