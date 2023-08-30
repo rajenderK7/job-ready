@@ -1,14 +1,15 @@
 import { Schema, model } from "mongoose";
 
 export interface BookingI {
-  userId: string;
-  intvrId: string;
+  userId: Schema.Types.ObjectId;
+  intvrId: Schema.Types.ObjectId;
   date: Date;
   timeFrom: number;
-  timeUntil: number;
+  timeUntil?: number;
+  oneHour: boolean;
 }
 
-const BookingSchema = new Schema({
+const BookingSchema = new Schema<BookingI>({
   userId: {
     type: Schema.Types.ObjectId,
     required: true,
@@ -28,6 +29,10 @@ const BookingSchema = new Schema({
   timeUntil: {
     type: Number,
     required: true,
+  },
+  oneHour: {
+    type: Boolean,
+    default: true,
   },
 });
 
