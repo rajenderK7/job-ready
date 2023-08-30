@@ -10,14 +10,16 @@ const Navbar = () => {
   const handleLogout = () => {
     if (authActions().logout()) {
       setAuth(JSON.stringify({}));
-      navigate("/login");
+      navigate("/login", {
+        replace: true,
+      });
       return;
     }
   };
   return (
     <nav className="bg-white border border-gray-200 shadow-md mb-4">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link to="/" className="flex items-center">
+      <div className="max-w-screen-xl flex flex-col lg:flex-row lg:flex-wrap items-center justify-between mx-auto p-4">
+        <Link to="/" className="flex items-center mb-2 md:mb-0">
           <h1 className="text-xl">🚀</h1>
           <span className="self-center text-2xl font-bold whitespace-nowrap text-pink-600">
             Job Ready
@@ -30,7 +32,9 @@ const Navbar = () => {
 
           {user?.email ? (
             <>
-              <strong>{user?.email}</strong>
+              <span>
+                Hi, <strong className="text-pink-600">{user?.email}</strong>
+              </span>
               <button onClick={handleLogout} className="hover:text-pink-600">
                 Logout
               </button>
