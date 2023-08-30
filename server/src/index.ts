@@ -6,6 +6,7 @@ import { exit } from "process";
 import userAPI from "./routes/user";
 import intvrAPI from "./routes/interviewer";
 import authAPI from "./routes/auth";
+import bookingAPI from "./routes/booking";
 
 configDotenv();
 const DB_URL = process.env.DB_URL!;
@@ -28,6 +29,7 @@ const apiRouter = express.Router();
 apiRouter.use("/user", userAPI);
 apiRouter.use("/intvr", intvrAPI);
 apiRouter.use("/auth", authAPI);
+apiRouter.use("/booking", bookingAPI);
 
 app.use("/api", apiRouter);
 app.get("/", async (req: Request, res: Response) => {
