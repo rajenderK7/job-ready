@@ -14,7 +14,7 @@ const Interviewers = () => {
   const navigate = useNavigate();
   const fetchIntrvs = async () => {
     setLoading(true);
-    const res = await fetch(`http://localhost:4000/api/intvr/${date}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/intvr/${date}`);
     const data = await res.json();
     setIntrvs(data.intrvs);
     setLoading(false);

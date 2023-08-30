@@ -38,7 +38,7 @@ const Booking = () => {
       toast.error("Invalid slot selection");
       return;
     }
-    const res = await fetch(`http://localhost:4000/api/booking`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/booking`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -75,7 +75,7 @@ const Booking = () => {
   const fetchBookings = async () => {
     setLoading(true);
     const res = await fetch(
-      `http://localhost:4000/api/booking/interviewer/${intvrId}/${date}`
+      `${import.meta.env.VITE_API_URL}/booking/interviewer/${intvrId}/${date}`
     );
     const intrvr = await res.json();
     if (intrvr.message !== "success") {
@@ -94,7 +94,9 @@ const Booking = () => {
   };
 
   const fetchIntvr = async () => {
-    const res = await fetch(`http://localhost:4000/api/intvr/one/${intvrId}/`);
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/intvr/one/${intvrId}/`
+    );
     const data = await res.json();
     setIntvr(data.intvr);
   };
