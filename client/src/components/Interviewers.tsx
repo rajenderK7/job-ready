@@ -11,7 +11,7 @@ const Interviewers = () => {
   const date = searchParams.get("date");
   const fetchIntrvs = async () => {
     setLoading(true);
-    const res = await fetch(`http://localhost:4000/intvr/${date}`);
+    const res = await fetch(`http://localhost:4000/api/intvr/${date}`);
     const data = await res.json();
     setIntrvs(data.intrvs);
     setLoading(false);
