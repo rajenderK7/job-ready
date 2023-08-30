@@ -20,7 +20,7 @@ const CustomCalendar = ({ date, setDate }: CustomCalendarProps) => {
     <>
       <Calendar
         {...options}
-        className="w-full border border-gray-300 rounded-md shadow-md p-2"
+        className="w-full border border-pink-400 rounded-md shadow-md p-2"
       />
     </>
   );
