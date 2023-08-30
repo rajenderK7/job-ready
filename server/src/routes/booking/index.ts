@@ -24,13 +24,14 @@ router.post("/", async (req: Request, res: Response) => {
 router.get("/:id/:date", async (req: Request, res: Response) => {
   try {
     const { id, date } = req.params;
+
     if (!id) {
       throw new Error("invalid interviewer ID");
     }
     const bookings = await Booking.find({ intvrId: id, date }).select(
       "timeFrom timeUntil"
     );
-    res.status(200).json({ bookings });
+    res.status(200).json({ message: "success", bookings });
   } catch (e: any) {
     res.status(400).json({ message: e.message });
   }

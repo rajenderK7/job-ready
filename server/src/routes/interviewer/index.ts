@@ -15,6 +15,16 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/one/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const intvr = await Interviewer.findById(id);
+    res.status(200).json({ intvr });
+  } catch (e) {
+    res.status(400).json({ message: "something went wrong" });
+  }
+});
+
 // GET api/intvr/date
 // Get interviewers available on given date
 // Expects date as as string formatted 'YYYY-MM-DD' E.g. '1987-10-26'

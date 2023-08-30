@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import Interviewers from "./components/Interviewers";
 import { Toaster } from "react-hot-toast";
+import Booking from "./components/Booking";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Home />} />
           <Route path="/interviewers/" element={<Interviewers />} />
+          <Route path="/interviewers/:intvrId/:date" element={<Booking />} />
         </Routes>
       </div>
       <Toaster />
