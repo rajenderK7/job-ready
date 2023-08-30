@@ -36,4 +36,5 @@ app.get("/", async (req: Request, res: Response) => {
   res.status(200).json({ message: "Hello there!" });
 });
 
-app.listen(4000, () => console.log("connected dude!"));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log("Listening at port:", PORT));

@@ -12,7 +12,7 @@ const MyInterviews = () => {
   const navigate = useNavigate();
 
   const withdrawInterviewHandler = async (id: string) => {
-    const res = await fetch(`http://localhost:4000/api/booking/${id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/booking/${id}`, {
       method: "DELETE",
       mode: "cors",
     });
@@ -31,7 +31,7 @@ const MyInterviews = () => {
   const fetchBookings = async () => {
     setLoading(true);
     const res = await fetch(
-      `http://localhost:4000/api/booking/user/${user._id}`
+      `${import.meta.env.VITE_API_URL}/booking/user/${user._id}`
     );
     const data = await res.json();
     if (data.message !== "success") {
