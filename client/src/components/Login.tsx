@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import CustomLoading from "./CustomLoading";
-import toast from "react-hot-toast/headless";
+import toast from "react-hot-toast";
 import { authActions } from "../actions/auth.actions";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { authAtom } from "../state/auth";
@@ -45,7 +45,7 @@ const Login = () => {
         });
         return;
       } else {
-        toast.error(res.message);
+        toast.error("Invalid OTP. Retry again");
         setLoading(false);
         setOTP("");
         setSentOTP(false);
