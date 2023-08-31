@@ -4,6 +4,8 @@ This is my (Rajender Katkuri) submission to OneShot.ai's take home assessment.
 
 **Aim**: An interactive portal where job seekers can book 1-1 mock interviews for _1 hour_ or _30 mins_ with working professionals.
 
+**UPDATED LINK 👇👇👇👇👇 (Link provided in the Google Form is a preview link)**
+
 **Live at**: https://job-ready-one.vercel.app/
 
 **Note**: Recieving OTP might take a few seconds, it is instant most of the times though.
