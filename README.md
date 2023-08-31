@@ -4,13 +4,9 @@ This is my (Rajender Katkuri) submission to OneShot.ai's take home assessment.
 
 **Aim**: An interactive portal where job seekers can book 1-1 mock interviews for _1 hour_ or _30 mins_ with working professionals.
 
-**Note**: Please als check your spam section for the OTP. It might take a minute or so (instant most of time though)
+**Live at**: https://job-ready-one.vercel.app/
 
-**Live at**: https://job-ready-dtjqflxb2-rajenderk7.vercel.app/
-
-**IMPORTANT**: Do not reload the login page, do not enter the links manually as it is a Single Page App and also Vercel's support for SPA (including the react-router-dom) is still risky.
-
-**NOTE**: While visiting the website, if reloading the page while on login page gives any error please close the tab and follow the link again to re-open. This issue is due to `react-router-dom` and vercel's inability to catch such routes during startup. PS: Working on this issue.
+**Note**: Recieving OTP might take a few seconds, it is instant most of the times though.
 
 ## Tech stack
 
