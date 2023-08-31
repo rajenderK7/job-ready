@@ -39,6 +39,7 @@ const Login = () => {
         lastName,
       });
       if (res.message === "success") {
+        localStorage.setItem("user", JSON.stringify(res.user));
         setAuth(res.user);
         navigate("/", {
           replace: true,
