@@ -6,7 +6,7 @@
 
 **Live at**: https://job-ready-one.vercel.app/
 
-**Note**: Recieving OTP might take a few seconds because of slow cold starts for free tier on render.com (backend is hosted on render.com) it is instant most of the times though.
+**Note**: For OTP please check your SPAM folder in the mail. Recieving OTP might take a few seconds because of slow cold starts for free tier on render.com (backend is hosted on render.com) it is instant most of the times though.
 
 ## Tech stack
 
