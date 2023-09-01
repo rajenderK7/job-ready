@@ -1,6 +1,4 @@
-# Job Ready
-
-This is my (Rajender Katkuri) submission to OneShot.ai's take home assessment.
+# Job Ready - OneShot.ai's take home assessment submission (Rajender Katkuri)
 
 **Aim**: An interactive portal where job seekers can book 1-1 mock interviews for _1 hour_ or _30 mins_ with working professionals.
 
@@ -8,7 +6,7 @@ This is my (Rajender Katkuri) submission to OneShot.ai's take home assessment.
 
 **Live at**: https://job-ready-one.vercel.app/
 
-**Note**: Recieving OTP might take a few seconds, it is instant most of the times though.
+**Note**: Recieving OTP might take a few seconds because of slow cold starts for free tier on render.com (backend is hosted on render.com) it is instant most of the times though.
 
 ## Tech stack
 
