@@ -1,6 +1,6 @@
 # Job Ready - OneShot.ai's take home assessment submission (Rajender Katkuri)
 
-**Aim**: An interactive portal where job seekers can book 1-1 mock interviews for _1 hour_ or _30 mins_ with working professionals.
+**Aim**: An interactive portal where job seekers can book 1-1 mock interviews for _1 hour_ or _30 mins_ with working professionals. [Screenshots](https://github.com/rajenderK7/job-ready/tree/main/screenshots)
 
 **UPDATED LINK 👇👇👇👇👇 (Link provided in the Google Form is a preview link)**
 
